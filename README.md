@@ -15,17 +15,22 @@ Java logger, but has shown serious security vulnerabilities in the past. MyLogge
 ## The new design patterns implemented are:
 
 [Builder (C)](https://refactoring.guru/design-patterns/builder)
+
 [Bridge (S)](https://refactoring.guru/design-patterns/bridge)
+
 [Chain of Responsibility (B)](https://refactoring.guru/design-patterns/chain-of-responsibility)
+
 
 ## Additional design patterns covered in course are:
 
 [Decorator (S)](https://refactoring.guru/design-patterns/decorator)
+
 [Observer (B)](https://refactoring.guru/design-patterns/observer)
+
 [Singleton (C)](https://refactoring.guru/design-patterns/singleton)
 
 # GitHub Repository Link:
-https://github.com/1-8192/bu_cs_665_final_project
+https://github.com/1-8192/MyLogger
 
 # Implementation Description 
 
