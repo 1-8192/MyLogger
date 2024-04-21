@@ -51,11 +51,61 @@ For each assignment, please answer the following:
 
  ### Explain the level of flexibility in your implementation, including how new object types can be easily added or removed in the future.
 
+MyLogger demonstrates a high level of flexibility through its use of design patterns such as the Chain of Responsibility, Observer, and Decorator. The Chain of Responsibility pattern allows for the easy addition or removal of loggers in the chain. 
+This is achieved by maintaining a chain of logger objects and allowing each logger to either handle the request or pass it along to the next logger in the chain. This design allows for the easy addition of new types of loggers or the removal 
+of existing ones without affecting the rest of the chain. Concrete Loggers implement the [Logger interface](src/main/java/edu/bu/met/cs665/Logger.java), which makes it simple and direct to add new types of loggers without breaking method contracts with the application.
+
+The Observer pattern provides flexibility in the way alerts are handled. By allowing loggers to have observers, different types of alert handlers can be added or removed as needed. 
+For instance, an EmailAlertObserver or an AlertingMonitorObserver can be attached to a logger to handle alerts. If in the future a new type of alert handler is needed, a new observer can be created by implementing the [Observer inerface](src/main/java/edu/bu/met/cs665/Observer.java) and attached to the logger. Similarly, existing 
+observers can be detached if they are no longer needed. 
+
+The Decorator pattern is used to add additional functionality such as severity filtering to a logger dynamically, providing another layer of flexibility. This makes the system highly adaptable to 
+changing requirements and promotes code reusability and maintainability.
+
 ### Discuss the simplicity and understandability of your implementation, ensuring that it is easy for others to read and maintain.
+
+The simplicity and understandability of the MyLogger implementation are ensured through the use of well-known design patterns, clear class and method names, and comprehensive comments. The use of design patterns such as Chain of Responsibility, 
+Observer, Decorator, and Singleton makes the code structure familiar to other developers, making it easier to understand how the different components of the system interact.
+
+Each class and method in the system has a clear and descriptive name that indicates its purpose. For example, the `LoggerChain` class represents a chain of loggers, and the `addLogger` method in this class is used to add a logger to the chain. 
+This makes the code self-explanatory, reducing the need for additional documentation.
+
+The code is also thoroughly commented, with each class and method having a comment that describes its purpose and functionality. This makes it easier for other developers to understand what each part of the code is doing, making the code easier to maintain and modify.
+
+The use of the Builder pattern for creating logger instances also contributes to the simplicity and understandability of the code. This pattern allows for the creation of complex logger objects in a step-by-step manner, making the code more readable and easier to understand.
+
+Finally, the code is organized in a logical and consistent manner, with each class being in its own file and related classes being in the same package. This makes it easier to navigate the codebase and find the relevant parts of the code when making changes or additions.
 
 ### Describe how you have avoided duplicated code and why it is important.
 
+In the MyLogger application, duplicated code has been avoided through the use of design patterns and object-oriented programming principles. The Chain of Responsibility pattern, for instance, allows us to avoid duplicating the logic of passing 
+log messages along the chain of loggers. Each logger in the chain only needs to know about the next logger in the chain, and the logic for passing messages along the chain is encapsulated in the `Logger` interface and its implementations.
+
+The Observer pattern is used to avoid duplicating the logic of alerting observers when a log message is received. Each `Logger` can have multiple observers, and the logic for notifying these observers is encapsulated in the `Logger` class.
+
+The Singleton pattern is used in the `LoggingSimulation` class to ensure that there is only one instance of the logging simulation, avoiding the need to duplicate the creation and initialization code for the simulation.
+
+The use of the Builder pattern in creating `Logger` instances helps to avoid duplicating code for creating complex `Logger` objects. The builder encapsulates the construction logic, allowing `Logger` objects to be created in a flexible and controlled manner.
+
 ### If applicable, mention any design patterns you have used and explain why they were chosen.
+
+The MyLogger application implements several design patterns to achieve its functionality:
+
+1. **Builder Pattern**: The Builder pattern is used in the creation of `Logger` instances. This pattern is chosen because it provides a flexible and readable way to create complex objects. In the case of `Logger` instances, there are several parameters that can be set, 
+such as the date-time format and file name for `FileLogger`. Using the Builder pattern, these parameters can be set in a clear and flexible way, making the code easier to read and maintain. Rather than abstracting Builders using an interface and implementing concrete builders, 
+the Builder pattern was implemented as a nested inner class to keep the codebase simple and easy to understand. Each Concrete Logger class has its own nested builder, adding to design clarity.
+
+2. **Chain of Responsibility Pattern**: The Chain of Responsibility pattern is used to manage a chain of `Logger` objects. This pattern is chosen because it allows the application to pass log messages along a chain of `Logger` objects, each of which can decide whether to handle the message or pass it along to the next `Logger` in the chain. 
+A user might want to log to console, to an output file, and to external monitors, so the chain removes duplicate code needed to explicitly log to all concrete loggers. This design provides flexibility in handling log messages and makes it easy to add or remove `Logger` objects from the chain.
+
+3. **Singleton Pattern**: The Singleton pattern is used in the `LoggingSimulation` class to ensure that there is only one instance of the logging simulation. This pattern is chosen because it ensures that the logging simulation, which manages the `Logger` chain and runs the logging examples, is only instantiated once.
+This avoids potential issues with multiple instances of the logging simulation running concurrently.
+
+4. **Decorator Pattern**: The Decorator pattern is used to add additional functionality to a `Logger` dynamically. In the case of the `SeverityFilterLogger`, this pattern is used to add severity filtering functionality to an existing `Logger`. This pattern is chosen because it allows for the addition of new 
+functionality without modifying the existing `Logger` classes, promoting code reusability and maintainability.
+
+5. **Observer Pattern**: The Observer pattern is used to allow `Logger` objects to notify observers when a log message is received. This pattern is chosen because it provides a flexible way to handle alerts. By allowing `Logger` objects to have observers, different types of alert handlers, such as `EmailAlertObserver` and `AlertingMonitorObserver`, can be added or removed as needed. 
+This makes the system highly adaptable to changing requirements and allows log activity to be published to external systems, which is a common requirement in enterprise applications.
 
 
 # Maven Commands
