@@ -9,7 +9,7 @@
 package edu.bu.met.cs665;
 
 /**
- * ecorator abstract class that sets decorator behavior.
+ * Decorator abstract class that sets decorator behavior.
  */
 public abstract class LoggerDecorator implements Logger {
   /**

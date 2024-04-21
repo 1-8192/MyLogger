@@ -10,13 +10,20 @@
 
 This is the Final Project for BU MET CS 665. The project is a Java application that demonstrates the use of design patterns. 
 The MyLogger application is a light-weight logging system that allows logging messages at different severity levels. SFL4J is the industry standard
-Java logger, but has shown serious security vulnerabilities in the past. MyLogger is a simple logging system that is easy to implement and use.
+Java logger, but has shown serious security vulnerabilities in the past. MyLogger is a simple logging system that is easy to implement and use. 
+
+MyLogger allows the user to instantiate concrete loggers that log to files or consoles, and can be added to a chain of responsibility to log messages at different
+severity levels. User can log messges at DEBUG, INFO, WARN, and Error log levels. 
+MyLogger also uses the observer pattern to allow for publishing alerts to emails or monitoring systems in case of severe logged errors.
+Additionally, the use of decorators allows for filtering of log messages based on severity level.
+
+Please see sample logged output below:
+
+![screenshot](./images/screenshot.png)
 
 ## The new design patterns implemented are:
 
 [Builder (C)](https://refactoring.guru/design-patterns/builder)
-
-[Bridge (S)](https://refactoring.guru/design-patterns/bridge)
 
 [Chain of Responsibility (B)](https://refactoring.guru/design-patterns/chain-of-responsibility)
 
@@ -36,7 +43,7 @@ https://github.com/1-8192/MyLogger
 
 ## UML Diagram for MyLogger
 
-![UML Diagram](diagrams/my_logger_uml.pdf)
+![UML Diagram](./diagrams/my_logger_uml.pdf)
 
 ## Description
 
