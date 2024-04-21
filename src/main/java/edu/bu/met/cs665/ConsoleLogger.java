@@ -18,6 +18,10 @@ import java.util.List;
  * Logger type that logs to console.
  */
 public class ConsoleLogger implements Logger {
+  /**
+   * Next logger in chain of responsibility.
+   */
+  private Logger next;
 
   /**
    * The date time format for logs.
@@ -46,6 +50,10 @@ public class ConsoleLogger implements Logger {
   public void debug(String message) {
     log = new Log(Level.DEBUG, message);
     log();
+    // pass the request along to the next Logger if set.
+    if (next != null) {
+      next.debug(message);
+    }
   }
 
   /**
@@ -56,6 +64,10 @@ public class ConsoleLogger implements Logger {
   public void info(String message) {
     log = new Log(Level.INFO, message);
     log();
+    // pass the request along to the next Logger if set.
+    if (next != null) {
+      next.info(message);
+    }
   }
 
   /**
@@ -66,6 +78,10 @@ public class ConsoleLogger implements Logger {
   public void warn(String message) {
     log = new Log(Level.WARN, message);
     log();
+    // pass the request along to the next Logger if set.
+    if (next != null) {
+      next.warn(message);
+    }
   }
 
   /**
@@ -76,6 +92,10 @@ public class ConsoleLogger implements Logger {
   public void error(String message) {
     log = new Log(Level.ERROR, message);
     log();
+    // pass the request along to the next Logger if set.
+    if (next != null) {
+      next.error(message);
+    }
   }
 
   /**
@@ -107,6 +127,15 @@ public class ConsoleLogger implements Logger {
   @Override
   public void removeObserver(Observer observer) {
     observers.remove(observer);
+  }
+
+  /**
+   * Sets the next logger in the chain of responsibility.
+   * @param next the next logger in the chain.
+   */
+  @Override
+  public void setNext(Logger next) {
+    this.next = next;
   }
 
   /**

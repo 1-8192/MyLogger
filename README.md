@@ -36,6 +36,8 @@ https://github.com/1-8192/MyLogger
 
 ## UML Diagram for MyLogger
 
+![UML Diagram](diagrams/my_logger_uml.pdf)
+
 ## Description
 
 For each assignment, please answer the following:

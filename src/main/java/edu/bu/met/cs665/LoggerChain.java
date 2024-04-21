@@ -12,20 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that implements a chain of responsibility for different loggers.
+ * Class that implements a chain of responsibility for different loggers. It keeps tab
+ * of the first and last logger in the chain in order to set the 'next' logger variable for
+ * the correct logger instance. For every log method, it sets off the chain by logging
+ * to the first logger in the chain.
  */
 public class LoggerChain {
   /**
    * The array of loggers to add to the chain.
    */
-  private List<Logger> loggers =  new ArrayList<>();
+  private Logger firstLogger;
+  private Logger lastLogger;
 
   /**
    * Add a logger to the chain.
    * @param logger the logger to add.
    */
   public void addLogger(Logger logger) {
-    loggers.add(logger);
+    if (firstLogger == null) {
+      firstLogger = logger;
+      lastLogger = logger;
+    } else {
+      lastLogger.setNext(logger);
+      lastLogger = logger;
+    }
   }
 
   /**
@@ -33,8 +43,8 @@ public class LoggerChain {
    * @param message the message to log.
    */
   public void debug(String message) {
-    for (Logger logger: loggers) {
-      logger.debug(message);
+    if (firstLogger != null) {
+      firstLogger.debug(message);
     }
   }
 
@@ -43,8 +53,8 @@ public class LoggerChain {
    * @param message the message to log.
    */
   public void info(String message) {
-    for (Logger logger: loggers) {
-      logger.info(message);
+    if (firstLogger != null) {
+      firstLogger.info(message);
     }
   }
 
@@ -53,8 +63,8 @@ public class LoggerChain {
    * @param message   the message to log.
    */
   public void warn(String message) {
-    for (Logger logger: loggers) {
-      logger.warn(message);
+    if (firstLogger != null) {
+      firstLogger.warn(message);
     }
   }
 
@@ -63,8 +73,8 @@ public class LoggerChain {
    * @param message   the message to log.
    */
   public void error(String message) {
-    for (Logger logger: loggers) {
-      logger.error(message);
+    if (firstLogger != null) {
+      firstLogger.error(message);
     }
   }
 }

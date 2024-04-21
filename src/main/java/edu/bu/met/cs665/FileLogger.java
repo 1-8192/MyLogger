@@ -22,6 +22,11 @@ import java.util.List;
  */
 public class FileLogger implements Logger {
   /**
+   * Next logger in chain of responsibility.
+   */
+  private Logger next;
+
+  /**
    * The java writer.
    */
   private PrintWriter writer;
@@ -63,6 +68,10 @@ public class FileLogger implements Logger {
   public void debug(String message) {
     log = new Log(Level.DEBUG, message);
     log();
+    // pass the request along to the next Logger if set.
+    if (next != null) {
+      next.debug(message);
+    }
   }
 
   /**
@@ -73,6 +82,10 @@ public class FileLogger implements Logger {
   public void info(String message) {
     log = new Log(Level.INFO, message);
     log();
+    // pass the request along to the next Logger if set.
+    if (next != null) {
+      next.info(message);
+    }
   }
 
   /**
@@ -83,6 +96,10 @@ public class FileLogger implements Logger {
   public void warn(String message) {
     log = new Log(Level.WARN, message);
     log();
+    // pass the request along to the next Logger if set.
+    if (next != null) {
+      next.warn(message);
+    }
   }
 
   /**
@@ -93,12 +110,16 @@ public class FileLogger implements Logger {
   public void error(String message) {
     log = new Log(Level.ERROR, message);
     log();
+    // pass the request along to the next Logger if set.
+    if (next != null) {
+      next.error(message);
+    }
   }
 
   /**
    * Log a message to the file using the java writer.
    */
-  private void log() {
+  public void log() {
     try {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
       String dateTime = LocalDateTime.now().format(formatter);
@@ -129,6 +150,15 @@ public class FileLogger implements Logger {
   @Override
   public void removeObserver(Observer observer) {
     observers.remove(observer);
+  }
+
+  /**
+   * Sets the next logger in the chain of responsibility.
+   * @param next the next logger in the chain.
+   */
+  @Override
+  public void setNext(Logger next) {
+    this.next = next;
   }
 
   /**

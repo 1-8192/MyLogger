@@ -78,4 +78,10 @@ public abstract class LoggerDecorator implements Logger {
   public void removeObserver(Observer observer) {
     decoratedLogger.removeObserver(observer);
   }
+
+  /**
+   * Sets the next logger in the chain of responsibility.
+   * @param next the next logger in the chain.
+   */
+  public void setNext(Logger next) {decoratedLogger.setNext(next);}
 }

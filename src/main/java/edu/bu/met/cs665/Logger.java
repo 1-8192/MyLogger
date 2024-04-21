@@ -50,4 +50,10 @@ public interface Logger {
    * @param observer  the observer to remove.
    */
   void removeObserver(Observer observer);
+
+  /**
+   * Sets the next logger in the chain of responsibility.
+   * @param next the next logger in the chain.
+   */
+  void setNext(Logger next);
 }
