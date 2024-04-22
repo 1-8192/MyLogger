@@ -47,6 +47,11 @@ public class FileLogger implements Logger {
   private Log log;
 
   /**
+   * The factory for log flyweights.
+   */
+  LogFlyweightFactory logFactory = new LogFlyweightFactory();
+
+  /**
    * List of observers to notify of logs.
    */
   private List<Observer> observers = new ArrayList<>();
@@ -66,7 +71,7 @@ public class FileLogger implements Logger {
    * @param message the message to log.
    */
   public void debug(String message) {
-    log = new Log(Level.DEBUG, message);
+    log = logFactory.getFlyweightLog(Level.DEBUG, message);
     log();
     // pass the request along to the next Logger if set.
     if (next != null) {
@@ -80,7 +85,7 @@ public class FileLogger implements Logger {
    */
   @Override
   public void info(String message) {
-    log = new Log(Level.INFO, message);
+    log = logFactory.getFlyweightLog(Level.INFO, message);
     log();
     // pass the request along to the next Logger if set.
     if (next != null) {
@@ -94,7 +99,7 @@ public class FileLogger implements Logger {
    */
   @Override
   public void warn(String message) {
-    log = new Log(Level.WARN, message);
+    log = logFactory.getFlyweightLog(Level.WARN, message);
     log();
     // pass the request along to the next Logger if set.
     if (next != null) {
@@ -108,7 +113,7 @@ public class FileLogger implements Logger {
    */
   @Override
   public void error(String message) {
-    log = new Log(Level.ERROR, message);
+    log = logFactory.getFlyweightLog(Level.ERROR, message);
     log();
     // pass the request along to the next Logger if set.
     if (next != null) {

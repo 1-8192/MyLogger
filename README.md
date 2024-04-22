@@ -13,7 +13,7 @@ The MyLogger application is a light-weight logging system that allows logging me
 Java logger, but has shown serious security vulnerabilities in the past. MyLogger is a simple logging system that is easy to implement and use. 
 
 MyLogger allows the user to instantiate concrete loggers that log to files or consoles, and can be added to a chain of responsibility to log messages at different
-severity levels. User can log messges at DEBUG, INFO, WARN, and Error log levels. 
+severity levels. User can log messages at DEBUG, INFO, WARN, and Error log levels. 
 MyLogger also uses the observer pattern to allow for publishing alerts to emails or monitoring systems in case of severe logged errors.
 Additionally, the use of decorators allows for filtering of log messages based on severity level.
 
@@ -21,11 +21,15 @@ Please see sample logged output below:
 
 ![screenshot](./images/screenshot.png)
 
+[Link to presentation Slides](https://docs.google.com/presentation/d/1OQGGIyOVIdrh-q4DaSFKUvBwVfO_PUpWuPcB0DEQxr4/edit?usp=sharing)
+
 ## The new design patterns implemented are:
 
 [Builder (C)](https://refactoring.guru/design-patterns/builder)
 
 [Chain of Responsibility (B)](https://refactoring.guru/design-patterns/chain-of-responsibility)
+
+[Flyweight (S)](https://refactoring.guru/design-patterns/flyweight)
 
 
 ## Additional design patterns covered in course are:
@@ -101,10 +105,12 @@ A user might want to log to console, to an output file, and to external monitors
 3. **Singleton Pattern**: The Singleton pattern is used in the `LoggingSimulation` class to ensure that there is only one instance of the logging simulation. This pattern is chosen because it ensures that the logging simulation, which manages the `Logger` chain and runs the logging examples, is only instantiated once.
 This avoids potential issues with multiple instances of the logging simulation running concurrently.
 
-4. **Decorator Pattern**: The Decorator pattern is used to add additional functionality to a `Logger` dynamically. In the case of the `SeverityFilterLogger`, this pattern is used to add severity filtering functionality to an existing `Logger`. This pattern is chosen because it allows for the addition of new 
+4. **Flyweight Pattern**: 
+
+5. **Decorator Pattern**: The Decorator pattern is used to add additional functionality to a `Logger` dynamically. In the case of the `SeverityFilterLogger`, this pattern is used to add severity filtering functionality to an existing `Logger`. This pattern is chosen because it allows for the addition of new 
 functionality without modifying the existing `Logger` classes, promoting code reusability and maintainability.
 
-5. **Observer Pattern**: The Observer pattern is used to allow `Logger` objects to notify observers when a log message is received. This pattern is chosen because it provides a flexible way to handle alerts. By allowing `Logger` objects to have observers, different types of alert handlers, such as `EmailAlertObserver` and `AlertingMonitorObserver`, can be added or removed as needed. 
+6. **Observer Pattern**: The Observer pattern is used to allow `Logger` objects to notify observers when a log message is received. This pattern is chosen because it provides a flexible way to handle alerts. By allowing `Logger` objects to have observers, different types of alert handlers, such as `EmailAlertObserver` and `AlertingMonitorObserver`, can be added or removed as needed. 
 This makes the system highly adaptable to changing requirements and allows log activity to be published to external systems, which is a common requirement in enterprise applications.
 
 

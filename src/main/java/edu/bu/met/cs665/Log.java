@@ -9,9 +9,10 @@
 package edu.bu.met.cs665;
 
 /*
-  * A class representing a log message.
+  * A class representing a log message. This is meant to be a flyweight object, please
+  * see the LogFlyweightFactory class for more information.
  */
-public class Log {
+public final class Log {
   /**
    * The log's level.
    */
