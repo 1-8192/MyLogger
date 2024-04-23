@@ -8,7 +8,8 @@
 
 # MyLoggger Assignment Overview
 
-This is the Final Project for BU MET CS 665. The project is a Java application that demonstrates the use of design patterns. 
+This is the Final Project for BU MET CS 665. The project is a Java application that demonstrates the use of design patterns. The new design patterns not covered
+in the course that were implemented are Builder, Chain of Responsibility, and Flyweight. The additional design patterns covered in the course are Decorator, Observer, and Singleton.
 The MyLogger application is a light-weight logging system that allows logging messages at different severity levels. SFL4J is the industry standard
 Java logger, but has shown serious security vulnerabilities in the past. MyLogger is a simple logging system that is easy to implement and use. 
 
@@ -105,7 +106,9 @@ A user might want to log to console, to an output file, and to external monitors
 3. **Singleton Pattern**: The Singleton pattern is used in the `LoggingSimulation` class to ensure that there is only one instance of the logging simulation. This pattern is chosen because it ensures that the logging simulation, which manages the `Logger` chain and runs the logging examples, is only instantiated once.
 This avoids potential issues with multiple instances of the logging simulation running concurrently.
 
-4. **Flyweight Pattern**: 
+4. **Flyweight Pattern**: The Flyweight pattern was implemented in the MyLogger application to optimize memory usage by sharing Log objects for the same log level. This is particularly beneficial in a logging system where many log messages of the same level are generated. The `LogFlyweightFactory` class manages the creation of `Log` 
+objects and maintains a `Map` where the keys are the log levels and the values are the `Log` objects. When a `Log` object for a given level is requested, the factory checks if it already exists in the `Map`. If it does, it returns that object. If it doesn't, it creates a new `Log` object, puts it in the `Map`, and returns it. This approach ensures 
+that only one `Log` object is created for each log level, significantly reducing memory usage when logging multiple messages of the same level.
 
 5. **Decorator Pattern**: The Decorator pattern is used to add additional functionality to a `Logger` dynamically. In the case of the `SeverityFilterLogger`, this pattern is used to add severity filtering functionality to an existing `Logger`. This pattern is chosen because it allows for the addition of new 
 functionality without modifying the existing `Logger` classes, promoting code reusability and maintainability.
