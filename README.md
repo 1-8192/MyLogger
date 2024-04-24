@@ -72,7 +72,7 @@ decorators to extend. This makes the system highly adaptable to changing require
 The simplicity and understandability of the MyLogger implementation are ensured through the use of well-known design patterns, clear class and method names, and comprehensive comments. The use of design patterns such as Chain of Responsibility, 
 Observer, Decorator, and Singleton makes the code structure familiar to other developers, making it easier to understand how the different components of the system interact.
 
-Each class and method in the system has a clear and descriptive name that indicates its purpose. For example, the `LoggerChain` class represents a chain of loggers, and the `addLogger` method in this class is used to add a logger to the chain. 
+Each class and method in the system has a clear and descriptive name that indicates its purpose. For example, the LoggerChain class represents a chain of loggers, and the addLogger method in this class is used to add a logger to the chain. 
 This makes the code self-explanatory, reducing the need for additional documentation. The application defines several interfaces and abstract classes that make behavior clear and easily
 extendable. 
 
@@ -99,23 +99,29 @@ The MyLogger application implements several design patterns to achieve its funct
 
 1. **Builder Pattern**: The Builder pattern is used in the creation of Logger instances. This pattern is chosen because it provides a flexible and readable way to create complex objects. In the case of Logger instances, there are several parameters that can be set, 
 such as the date-time format and file name for FileLogger. Using the Builder pattern, these parameters can be set in a clear and flexible way, making the code easier to read and maintain. Rather than abstracting Builders using an interface and implementing concrete builders, 
-the Builder pattern was implemented as a nested inner class to keep the codebase simple and easy to understand. Each Concrete Logger class has its own nested builder, adding to design clarity.
+the Builder pattern was implemented as a nested inner class to keep the codebase simple and easy to understand. Each Concrete Logger class has its own nested builder, adding to design clarity. For an example see the Builder inner class in  [ConsoleLogger](src/main/java/edu/bu/met/cs665/ConsoleLogger.java)
+
 
 2. **Chain of Responsibility Pattern**: The Chain of Responsibility pattern is used to manage a chain of Logger objects. This pattern is chosen because it allows the application to pass log messages along a chain of Logger objects, each of which can decide whether to handle the message or pass it along to the next Logger in the chain. 
-A user might want to log to console, to an output file, and to external monitors, so the chain removes duplicate code needed to explicitly log to all concrete loggers. This design provides flexibility in handling log messages and makes it easy to add or remove Logger objects from the chain.
+A user might want to log to console, to an output file, and to external monitors, so the chain removes duplicate code needed to explicitly log to all concrete loggers. This design provides flexibility in handling log messages and makes it easy to add or remove Logger objects from the chain. Loggers serve as their own concrete
+handlers by way of the setNext() interface method. and the chain is managed by the [LoggerChain](src/main/java/edu/bu/met/cs665/LoggerChain.java) class. 
 
-3. **Singleton Pattern**: The Singleton pattern is used in the LoggingSimulation class to ensure that there is only one instance of the logging simulation. This pattern is chosen because it ensures that the logging simulation, which manages the Logger chain and runs the logging examples, is only instantiated once.
+
+3. **Singleton Pattern**: The Singleton pattern is used in the [LoggingSimulation](src/main/java/edu/bu/met/cs665/LoggingSimulation.java) class to ensure that there is only one instance of the logging simulation. This pattern is chosen because it ensures that the logging simulation, which manages the Logger chain and runs the logging examples, is only instantiated once.
 This avoids potential issues with multiple instances of the logging simulation running concurrently.
 
-4. **Flyweight Pattern**: The Flyweight pattern was implemented in the MyLogger application to optimize memory usage by sharing Log objects for the same log level. This is particularly beneficial in a logging system where many log messages of the same level are generated. The LogFlyweightFactory class manages the creation of Log 
+
+4. **Flyweight Pattern**: The Flyweight pattern was implemented in the MyLogger application to optimize memory usage by sharing Log objects for the same log level. This is particularly beneficial in a logging system where many log messages of the same level are generated. The [LogFlyweightFactory](src/main/java/edu/bu/met/cs665/LogFlyweightFactory.java) class manages the creation of Log 
 objects and maintains a Map where the keys are the log levels and the values are the Log objects. When a Log object for a given level is requested, the factory checks if it already exists in the Map. If it does, it returns that object. If it doesn't, it creates a new Log object, puts it in the Map, and returns it. This approach ensures 
 that only one Log object is created for each log level, significantly reducing memory usage when logging multiple messages of the same level. Log instances are not very memory intense and the use of the Flyweight pattern is a little forced here, but I really wanted to hit a third new pattern so just went for it. Can't hurt 
 to share some resources even in lightweight objects. 
 
-5. **Decorator Pattern**: The Decorator pattern is used to add additional functionality to a Logger dynamically. In the case of the SeverityFilterLogger, this pattern is used to add severity filtering functionality to an existing Logger. This pattern is chosen because it allows for the addition of new 
+
+5. **Decorator Pattern**: The Decorator pattern is used to add additional functionality to a Logger dynamically. In the case of the [SeverityFilterLogger](src/main/java/edu/bu/met/cs665/SeverityFilterLogger.java), this pattern is used to add severity filtering functionality to an existing Logger. This pattern is chosen because it allows for the addition of new 
 functionality without modifying the existing Logger classes, promoting code reusability and maintainability.
 
-6. **Observer Pattern**: The Observer pattern is used to allow Logger objects to notify observers when a log message is received. This pattern is chosen because it provides a flexible way to handle alerts. By allowing Logger objects to have observers, different types of alert handlers, such as EmailAlertObserver and AlertingMonitorObserver, can be added or removed as needed. 
+
+6. **Observer Pattern**: The Observer pattern is used to allow Logger objects to notify observers when a log message is received. This pattern is chosen because it provides a flexible way to handle alerts. By allowing Logger objects to have observers, different types of alert handlers, such as [EmailAlertObserver](src/main/java/edu/bu/met/cs665/EmailAlertObserver.java) and [AlertingMonitorObserver](src/main/java/edu/bu/met/cs665/AlertingMonitorObserver.java), can be added or removed as needed. 
 This makes the system highly adaptable to changing requirements and allows log activity to be published to external systems, which is a common requirement in enterprise applications.
 
 
