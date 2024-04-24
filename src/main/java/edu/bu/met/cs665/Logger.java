@@ -10,7 +10,8 @@ package edu.bu.met.cs665;
 
 /**
  * Logger interface provides basic contracts for logger classes to
- * implement.
+ * implement and serves as the Handler interface in the Chain of
+ * responsibility pattern..
  */
 public interface Logger {
   /**
