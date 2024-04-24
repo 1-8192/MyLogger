@@ -10,7 +10,7 @@
 
 This is the Final Project for BU MET CS 665. The project is a Java application that demonstrates the use of software design patterns. The new design patterns not covered
 in the course that were implemented are Builder, Chain of Responsibility, and Flyweight. The additional design patterns covered in the course are Decorator, Observer, and Singleton.
-The MyLogger application is a light-weight logging system that allows logging messages at different severity levels. SFL4J is the industry standard
+The MyLogger application is a light-weight logging system that allows logging messages at different severity levels. Log4J is an industry standard
 Java logger, but has shown serious security vulnerabilities in the past. MyLogger is a simple logging system that is easy to implement and use. 
 
 MyLogger allows the user to instantiate concrete loggers that log to files or consoles, and can be added to a chain of responsibility to log messages at different
