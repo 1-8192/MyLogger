@@ -68,9 +68,11 @@ public class LoggingSimulation {
     loggerChain.warn("Hello, world?");
     loggerChain.error("Goodbye, world!");
 
-    // Add severity filter to the console logger using decorator pattern.
+    // Removing observer since we've already tested that functionality.
     consoleLogger.removeObserver(observer);
     consoleLogger.removeObserver(observer2);
+
+    // Add severity filter to the console logger using decorator pattern.
     SeverityFilterLogger severityFilterLogger = new SeverityFilterLogger.Builder()
           .withLogger(consoleLogger)
           .withMinSeverity(Level.WARN)
